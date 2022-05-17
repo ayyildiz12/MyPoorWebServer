@@ -20,17 +20,17 @@
 #define SERVER_STRING "Server: SongHao's http/0.1.0\r\n"//定义个人server名称
 
 
-void *accept_request(void* client);
+void *accept_request(void* client);                               //等待connect
 void bad_request(int);
 void cat(int, FILE *);
 void cannot_execute(int);
 void error_die(const char *);
-void execute_cgi(int, const char *, const char *, const char *);
-int get_line(int, char *, int);
+void execute_cgi(int, const char *, const char *, const char *);  //对于有参数的pos和get方法，调用
+int get_line(int, char *, int);                                   //解析一行http报文
 void headers(int, const char *);
 void not_found(int);
 void serve_file(int, const char *);
-int startup(u_short *);
+int startup(u_short *);                 //建立socket，等待connect
 void unimplemented(int);
 
 
@@ -205,6 +205,7 @@ void error_die(const char *sc)
 
 
 //执行cgi动态解析
+//创建两个管道用于父子进程通信
 void execute_cgi(int client, const char *path,
                  const char *method, const char *query_string)
 {
